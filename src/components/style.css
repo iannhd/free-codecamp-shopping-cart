@@ -20,6 +20,10 @@
     height: 86vh;
 }
 
+.summary{
+    width:30%
+}
+
 .filters > span {
     padding-bottom: 20px;
 }
