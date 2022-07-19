@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react'
 import { CartState } from "../context/Context"
-import { ListGroup, Button, Row, Col, ListGroupItem } from "react-bootstrap"
+import { ListGroup, Button, Row, Col, ListGroupItem, FormControl, Image } from "react-bootstrap"
 import Rating from './Rating'
+import { AiFillDelete } from 'react-icons/ai'
 
 const Cart = () => {
 
@@ -22,8 +23,11 @@ const Cart = () => {
                 {
                     cart.map((prod)=> {
                         return(
-                        <ListGroupItem>
+                        <ListGroupItem key={prod.id}>
                             <Row>
+                                <Col md={2}>
+                                    <Image src={prod.image} alt={prod.name} fluid rounded/>
+                                </Col>
                                 <Col md={2}>
                                     <span>{prod.name}</span>
                                 </Col>
@@ -31,7 +35,36 @@ const Cart = () => {
                                     <span>Rp {prod.price}</span>
                                 </Col>
                                 <Col md={2}>
-                                    <Rating rating={prod.rating}/>
+                                    <Rating rating={prod.ratings}/>
+                                </Col>
+                                <Col md={2}>
+                                    <FormControl 
+                                    as="select" 
+                                    onChange={(e)=>{
+                                        dispatch({
+                                            type: "CHANGE_CART_QTY",
+                                            payload: {
+                                                id: prod.id,
+                                                qty:e.target.value
+                                            }
+                                        })
+                                    }}
+                                    value={prod.qty}>
+                                    {[...Array(prod.inStock).keys()].map((x)=>{
+                                        return(
+                                        <option key={x + 1}>{x + 1}</option>
+                                        )
+                                    })}
+                                    </FormControl>
+                                </Col>
+                                <Col md={2}>
+                                <Button onClick={()=>{
+                                    dispatch({
+                                        type: "REMOVE_FROM_CART",
+                                        payload: prod
+                                    })}} variant="light" >
+                                    <AiFillDelete/>
+                                </Button>
                                 </Col>
                             </Row>
                         </ListGroupItem>

@@ -8,7 +8,7 @@ const SingleProduct = ({prod}) => {
 
     const {state : {cart}, dispatch} = CartState()
 
-    console.log("cart ==> ", cart);
+
 
     return(
         <div className="products">
@@ -30,7 +30,8 @@ const SingleProduct = ({prod}) => {
                             dispatch({
                                 type: "REMOVE_FROM_CART",
                                 payload: prod
-                            })}} variant="danger" >Remove from Cart</Button>
+                            })}} variant="danger" >Remove from Cart
+                        </Button>
                     ):(
                         <Button onClick={()=>{
                             dispatch({
@@ -41,9 +42,6 @@ const SingleProduct = ({prod}) => {
                             {!prod.inStock ? "Out of Stock" : "Add to Cart"}
                         </Button>
                     )}
-
-                    
-                   
                 </Card.Body>
             </Card>
         </div>

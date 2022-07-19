@@ -9,7 +9,8 @@ import "./style.css"
 const Header = () => {
 
     const {state: {cart},
-            dispatch } 
+            dispatch, 
+            productDispatch } 
     = CartState()
 
     return(
@@ -23,6 +24,14 @@ const Header = () => {
                     // style={{width: 600}} 
                     placeholder="Search Products.."
                     className="m-auto"
+                    onChange={
+                        (e)=>{
+                            productDispatch({
+                                type: "FILTER_BY_SEARCH",
+                                payload: e.target.value
+                            })
+                        }
+                    }
                     />
                 </Navbar.Text>
                 <Dropdown>
